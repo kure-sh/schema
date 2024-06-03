@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "https://kure.sh/lib/spec@0.1/": "../spec/"
+  }
+}
