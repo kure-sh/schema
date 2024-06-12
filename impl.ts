@@ -1,9 +1,4 @@
-import {
-  Resource,
-  ResourceBody,
-  ResourceSpec,
-  ResourceType,
-} from "./resource.ts";
+import type { Resource, ResourceBody, ResourceType } from "./resource.ts";
 
 export const scope = Symbol("scope");
 
@@ -18,17 +13,7 @@ export function factory<R extends Resource>(
   kind: R["kind"],
   scope: R[ScopeKey]
 ): ResourceType<R> {
-  const build = function build<R extends Resource>(
-    ...contents: [ResourceBody<R>] | [R["metadata"], ResourceSpec<R>]
-  ): R {
-    const body =
-      contents.length === 2
-        ? ({
-            metadata: contents[0],
-            spec: contents[1],
-          } as unknown as ResourceBody<R>)
-        : contents[0];
-
+  const build = function build<R extends Resource>(body: ResourceBody<R>): R {
     return { apiVersion, kind, ...body } as R;
   } as ResourceType<R>;
 

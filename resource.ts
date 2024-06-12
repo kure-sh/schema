@@ -34,7 +34,6 @@ export interface ResourceType<R extends Resource> {
   scope: R[typeof scope];
 
   (body: ResourceBody<R>): R;
-  (meta: R["metadata"], spec: ResourceSpec<R>): R;
 }
 
 /**
