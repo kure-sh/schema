@@ -10,8 +10,8 @@ Building the example in the [spec package][spec] would generate code which uses 
 [spec]: https://github.com/kure-sh/spec#readme
 
 ```ts
-import type { ObjectMeta } from "https://kure.sh/api/@1.30/meta/v1.ts";
-import { factory, type NameScope, type Resource } from "https://kure.sh/lib/schema@0.1/mod.ts";
+import type { ObjectMeta } from "jsr:@kure/api/meta";
+import { factory, type NameScope, type Resource } from "jsr:@kure/schema";
 
 export type APIVersion = "example.kure.sh/v1alpha1";
 export const apiVersion: APIVersion = "example.kure.sh/v1alpha1";

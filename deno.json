@@ -1,5 +1,10 @@
 {
+  "name": "@kure/schema",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./mod.ts"
+  },
   "imports": {
-    "https://kure.sh/lib/spec@0.1/": "../spec/"
+    "@kure/spec": "jsr:@kure/spec@^0.1.0"
   }
 }

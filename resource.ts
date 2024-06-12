@@ -1,6 +1,6 @@
-import type { NameScope } from "https://kure.sh/lib/spec@0.1/mod.ts";
+import type { NameScope } from "@kure/spec";
 
-import { scope } from "./impl.ts";
+import type { scope } from "./impl.ts";
 import type { ListMeta, ObjectMeta } from "./meta.ts";
 
 /**

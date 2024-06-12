@@ -1,4 +1,4 @@
-import type { NameScope } from "https://kure.sh/lib/spec@0.1/mod.ts";
+import type { NameScope } from "@kure/spec";
 
 import type { ObjectMeta } from "./meta.ts";
 import type { Identifier, NamespacedName } from "./identity.ts";

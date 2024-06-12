@@ -1,4 +1,4 @@
-import type { NameScope } from "https://kure.sh/lib/spec@0.1/mod.ts";
+import type { NameScope } from "@kure/spec";
 
 /**
  * The properties which uniquely identify a resource within a Kubernetes
