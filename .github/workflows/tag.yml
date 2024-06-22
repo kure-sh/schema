@@ -1,4 +1,4 @@
-name: Tag version
+name: Tag and publish version
 
 on:
   push:
@@ -11,6 +11,7 @@ jobs:
 
     permissions:
       contents: write
+      id-token: write # The OIDC ID token is used for authentication with JSR.
 
     steps:
       - name: Check out source
@@ -38,7 +39,7 @@ jobs:
             const subject = commit.message.split("\n", 1)[0];
             console.log(chalk.bold(`“${subject}”`), chalk.gray(`[${sha}]`));
             console.log(
-              `committed by ${chalk.bold(author.login)}`,
+              `by ${chalk.bold(author.login)}`,
               `(${commit.author.name})`,
               chalk.gray(commit.author.date)
             );
@@ -94,3 +95,8 @@ jobs:
           git tag -v "$TAG_NAME"
 
           git push origin "$TAG_NAME"
+
+      - name: Publish to JSR
+        if: fromJson(steps.check.outputs.result).pending
+        run: >
+          deno publish
