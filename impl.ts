@@ -29,3 +29,60 @@ export function factory<R extends Resource>(
 
   return build;
 }
+
+/**
+ * Create a [type predicate][] for the given {@link ResourceType resource type}.
+ *
+ * [type predicate]: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
+ *
+ * @example
+ * ```ts
+ * import { Pod, Service } from "jsr:@kure/api/core";
+ * import { isResource } from "jsr:@kure/schema";
+ *
+ * export const isPod = isResource(Pod);
+ * export const isService = isResource(Service);
+ * ```
+ */
+export function isResource<R extends Resource>(
+  type: ResourceType<R>
+): (target: unknown) => target is R;
+/**
+ * [Check][type predicate] if a value is an instance of a
+ * {@link ResourceType resource type}.
+ *
+ * [type predicate]: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
+ *
+ * @example
+ * ```ts
+ * import { Deployment } from "jsr:@kure/api/apps";
+ * import { isResource, type Resource } from "jsr:@kure/schema";
+ *
+ * function updateScale(replicas: number, resources: Resource[]) {
+ *   for (const resource of resources) {
+ *     if (isResource(Deployment, resource)) {
+ *       // TypeScript now knows `resource` is a Deployment
+ *       resource.spec.replicas = replicas;
+ *     }
+ *   }
+ * }
+ * ```
+ */
+export function isResource<R extends Resource>(
+  type: ResourceType<R>,
+  target: unknown
+): target is R;
+export function isResource<R extends Resource>(
+  type: ResourceType<R>,
+  target?: unknown
+) {
+  if (arguments.length < 2)
+    return (target: unknown) => isResource(type, target);
+
+  return (
+    target != null &&
+    typeof target === "object" &&
+    (target as Resource).apiVersion === type.apiVersion &&
+    (target as Resource).kind === type.kind
+  );
+}
